@@ -2,36 +2,35 @@ name: 'docker image build'
 
 on:
   schedule:
-  - cron: "0 0 */7 * *"
+    - cron: "0 0 */7 * *"
   workflow_dispatch:
   push:
     tags:
       - '*'
 
-
 jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v3
+
       - name: Checkout submodules
         run: git submodule update --init --recursive
-      -
-        name: Set up QEMU
+
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
-      -
-        name: Set up Docker Buildx
+
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      -
-        name: Login to DockerHub
+
+      - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
+          username: ${{ secrets.NEW_DOCKERHUB_USERNAME }}
+          password: ${{ secrets.NEW_DOCKERHUB_TOKEN }}
+
+      - name: Build and push
         uses: docker/build-push-action@v3
         with:
           context: .
