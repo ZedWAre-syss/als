@@ -56,7 +56,7 @@ onMounted(async () => {
     <n-global-style />
     <n-message-provider>
       <n-space vertical>
-        <h2>RamCast Status Dash</h2>
+        <h2>RamCast Status Dashboard</h2>
         <LoadingCard v-if="appStore.connecting" />
         <template v-else>
           <InfoCard />
